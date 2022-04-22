@@ -4,6 +4,8 @@ import math
 from traceback import print_tb
 from datetime import datetime
 
+from itsdangerous import exc
+
 #SETTINGS
 store_Interval = 60 * 60
 
@@ -50,3 +52,27 @@ def StoreTimeStamp(emision, planeinair):
         print("Error")
     # Close the connection
     connection_obj.close()
+def GetLastamp():
+    currentTime = int(time.time())
+    currentHourStamp = math.floor(currentTime / store_Interval)
+    now = datetime.now()
+    Current_Min = now.strftime("%M")
+    connection_obj = sqlite3.connect('/Users/johannes/Git-Prosjekter/Miljø_Prosjekt/Store/database.db')
+    cursor_obj = connection_obj.cursor()
+    # Check table stamp exist
+    try:
+        sqlite_select_query = """SELECT * from """ + "t" + str(currentHourStamp)
+        cursor_obj.execute(sqlite_select_query)
+        records = cursor_obj.fetchall()
+        Newest = {0,0,-1}
+        for row in records:
+            PlaneInAir, Emmision, Time = row[0], row[1], row[2]
+            if Time > Newest[2]:
+                Newest = {PlaneInAir, Emmision, Time}
+        print(Newest)
+        cursor_obj.close()
+
+    except:
+        print("WOOW")
+
+GetLastamp()
