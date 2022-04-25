@@ -64,14 +64,14 @@ def GetLastamp():
         sqlite_select_query = """SELECT * from """ + "t" + str(currentHourStamp)
         cursor_obj.execute(sqlite_select_query)
         records = cursor_obj.fetchall()
-        Newest = {0,0,-1}
+        Newest = [0,0,-1]
         for row in records:
             PlaneInAir, Emmision, Time = row[0], row[1], row[2]
+            print(Time, Newest[2])
             if Time > Newest[2]:
-                Newest = {PlaneInAir, Emmision, Time}
-        print(Newest)
+                Newest = [PlaneInAir, Emmision, Time]
         cursor_obj.close()
-
+        return {"InAir": Newest[0], "Emmision": Newest[1], "Time": Newest[2]}
     except:
         print("WOOW")
 

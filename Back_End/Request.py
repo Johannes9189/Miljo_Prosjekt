@@ -1,4 +1,6 @@
+import imp
 import os
+from storehandler import *
 from flask import Flask, send_from_directory
 from flask.helpers import safe_join
 
@@ -10,7 +12,7 @@ def home():
 @app.route('/data')
 def data():
     #Get last minute data
-    
-    return {}
+    newest = GetLastamp()
+    return newest
 if __name__ == '__main__':
     app.run()

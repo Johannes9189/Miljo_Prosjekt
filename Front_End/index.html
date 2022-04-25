@@ -6,7 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      background-color: #2196F3;
+      padding: 10px;
+    }
+    </style>
 <body>
-    <p>Works</p>
+    <p>What has planes done last houre?</p>
+    <div class="Top" id="TOpp">
+
+    </div>
+    <div class="grid-container" id="Cont">
+
+    </div>
 </body>
 </html>
+
+<script>
+    //Display barrel of oil
+    fetch("http://127.0.0.1:5000/data", {
+        method: "GET",
+        headers: {'Content-Type': 'application/json'}
+    }).then(function(response) {
+        response.json().then(function(json) {
+            let emmision = json["Emmision"]
+            let InAir = json["InAir"]
+            let Barrels = Math.floor((emmision / 159))
+            const newDiv1 = document.createElement("p");
+            newDiv1.innerHTML = "Barrels of oil burned last hour " + Barrels
+            document.getElementById("TOpp").appendChild(newDiv1);
+
+            const newDiv2 = document.createElement("p");
+            newDiv2.innerHTML = "Planes in air " + InAir
+            document.getElementById("TOpp").appendChild(newDiv2);
+
+            const newDiv3 = document.createElement("p");
+            newDiv3.innerHTML = "Total emision KG: " + emmision
+            document.getElementById("TOpp").appendChild(newDiv3);
+
+            for (let b = 0; b <= Barrels; b++) {
+                const newDiv = document.createElement("img");
+                newDiv.src = "https://static.vecteezy.com/system/resources/thumbnails/000/514/708/small/barrel_03.jpg"
+                document.getElementById("Cont").appendChild(newDiv);
+            }
+        });
+    });
+</script>
