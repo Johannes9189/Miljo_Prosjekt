@@ -1,1 +1,1 @@
-Hello
+This here is the kilde kode for the miljop prosjekt. Everythibng is licensed by the apache license. Do not steal or use without my permision or see you in court. Thank you for reading this readme.md :)
